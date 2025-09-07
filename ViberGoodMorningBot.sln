@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViberGoodMorningBot", "ViberGoodMorningBot\ViberGoodMorningBot.csproj", "{417D6546-C434-4A48-87BB-1F6B6BFE4356}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{417D6546-C434-4A48-87BB-1F6B6BFE4356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417D6546-C434-4A48-87BB-1F6B6BFE4356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417D6546-C434-4A48-87BB-1F6B6BFE4356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417D6546-C434-4A48-87BB-1F6B6BFE4356}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B71F6461-3175-449B-91DB-6FA8154FDC9E}
+	EndGlobalSection
+EndGlobal
