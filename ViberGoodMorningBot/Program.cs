@@ -1,6 +1,7 @@
 
 using Scalar.AspNetCore;
 using ViberGoodMorningBot.Models;
+using ViberGoodMorningBot.Service;
 
 namespace ViberGoodMorningBot
 {
@@ -15,6 +16,8 @@ namespace ViberGoodMorningBot
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            builder.Services.AddHttpClient<ViberService>();
 
             // Bind ViberSettings section to ViberSettings class
             builder.Services.Configure<ViberSettings>(

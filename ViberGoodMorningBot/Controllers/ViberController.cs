@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ViberGoodMorningBot.Models;
+using ViberGoodMorningBot.Service;
 
 namespace ViberGoodMorningBot.Controllers;
 
@@ -10,10 +11,22 @@ public class ViberController : ControllerBase
 {
     private static readonly Dictionary<string, DateTime> LastGreeted = new();
     private readonly ViberSettings _viberSettings;
-    public ViberController(IOptions<ViberSettings> viberOptions)
+    private readonly ViberService _viberService;
+
+    public ViberController(IOptions<ViberSettings> viberOptions, ViberService viberService)
     {
         // Access the strongly-typed settings
         _viberSettings = viberOptions.Value;
+        _viberService = viberService;
+    }
+
+
+    [HttpPost("register-webhook")]
+    public async Task<IActionResult> RegisterWebhook()
+    {
+        string webhookUrl = $"{_viberSettings.Url}viber/webhook";
+        await _viberService.RegisterWebhookAsync(webhookUrl);
+        return Ok("Webhook registered successfully");
     }
     [HttpPost]
     public IActionResult Receive([FromBody] ViberMessage update)
