@@ -24,9 +24,16 @@ public class ViberController : ControllerBase
     [HttpPost("register-webhook")]
     public async Task<IActionResult> RegisterWebhook()
     {
-        string webhookUrl = $"{_viberSettings.Url}viber/webhook";
-        await _viberService.RegisterWebhookAsync(webhookUrl);
-        return Ok("Webhook registered successfully");
+        try
+        {
+            string webhookUrl = $"{_viberSettings.Url}viber/webhook";
+            await _viberService.RegisterWebhookAsync(webhookUrl);
+            return Ok("Webhook registered successfully");
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message);
+        }
     }
     [HttpPost]
     public IActionResult Receive([FromBody] ViberMessage update)
@@ -36,7 +43,10 @@ public class ViberController : ControllerBase
         if (update.Message?.Type == "text" && !string.IsNullOrEmpty(update.Message.Text))
         {
             var text = update.Message.Text.ToLower();
-            if (text.Contains("good morning"))
+            if (text.Contains("good morning") 
+                || text.Contains("i am in")
+                || text.Contains("m in")
+                )
             {
                 var userId = update.Sender?.Id ?? "";
                 var userName = update.Sender?.Name ?? "friend";
