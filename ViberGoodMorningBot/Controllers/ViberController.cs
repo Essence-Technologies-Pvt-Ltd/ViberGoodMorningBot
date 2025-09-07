@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ViberGoodMorningBot.Models;
 
 namespace ViberGoodMorningBot.Controllers;
@@ -8,7 +9,12 @@ namespace ViberGoodMorningBot.Controllers;
 public class ViberController : ControllerBase
 {
     private static readonly Dictionary<string, DateTime> LastGreeted = new();
-
+    private readonly ViberSettings _viberSettings;
+    public ViberController(IOptions<ViberSettings> viberOptions)
+    {
+        // Access the strongly-typed settings
+        _viberSettings = viberOptions.Value;
+    }
     [HttpPost]
     public IActionResult Receive([FromBody] ViberMessage update)
     {
@@ -42,7 +48,7 @@ public class ViberController : ControllerBase
                             {
                                     new {
                                         ActionType = "open-url",
-                                        ActionBody = "https://yourdomain.com/showip?uid=" + userId,
+                                        ActionBody =  $"{_viberSettings.Url}showip?uid=" + userId,
                                         Text = "🔍 Show My Real IP"
                                     }
                                 }
@@ -51,7 +57,7 @@ public class ViberController : ControllerBase
 
                     // send reply back to Viber
                     using var client = new HttpClient();
-                    client.DefaultRequestHeaders.Add("X-Viber-Auth-Token", "YOUR_VIBER_AUTH_TOKEN");
+                    client.DefaultRequestHeaders.Add("X-Viber-Auth-Token", _viberSettings.AuthToken);
                     var response = client.PostAsJsonAsync("https://chatapi.viber.com/pa/send_message", reply).Result;
 
                     return Ok(new { status = "replied", ip = clientIp });

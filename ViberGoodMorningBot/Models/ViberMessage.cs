@@ -18,3 +18,8 @@ public class Message
     public string Type { get; set; } = string.Empty;
     public string Text { get; set; } = string.Empty;
 }
+public class ViberSettings
+{
+    public string Url { get; set; } = string.Empty;
+    public string AuthToken { get; set; } = string.Empty;
+}
